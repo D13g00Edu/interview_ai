@@ -53,25 +53,25 @@ export default function InterviewPage() {
   const currentQuestion = state.questions[state.currentStep - 1] || (state.loading ? "Generando tu entrevista personalizada..." : "Preparando siguiente pregunta...");
 
   return (
-    <main className="flex min-h-screen flex-col bg-background text-foreground">
+    <main className="flex h-screen flex-col bg-background text-foreground overflow-hidden">
       {/* Header */}
-      <header className="border-b border-border-custom p-4 md:p-6 flex justify-between items-center bg-background/80 backdrop-blur-md sticky top-0 z-50">
-        <div className="flex items-center gap-3 md:gap-4 max-w-[60%]">
-          <div className="w-8 h-8 md:w-10 md:h-10 bg-primary/20 rounded-lg flex items-center justify-center text-primary font-bold text-sm md:text-base shrink-0">
+      <header className="border-b border-border-custom p-3 flex justify-between items-center bg-background/80 backdrop-blur-md z-50 shrink-0">
+        <div className="flex items-center gap-2 max-w-[60%]">
+          <div className="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center text-primary font-bold text-xs shrink-0">
             IA
           </div>
           <div className="min-w-0">
-            <h2 className="font-bold tracking-tight text-sm md:text-base truncate">Entrevista para {state.position}</h2>
-            <p className="text-[9px] md:text-[10px] text-foreground/50 font-bold uppercase tracking-widest truncate">{state.type} • {state.level}</p>
+            <h2 className="font-bold tracking-tight text-xs truncate">Entrevista para {state.position}</h2>
+            <p className="text-[8px] text-foreground/50 font-bold uppercase tracking-widest truncate">{state.type} • {state.level}</p>
           </div>
         </div>
         
-        <div className="flex flex-col items-end gap-1.5 md:gap-2">
-          <div className="flex items-center gap-2 md:gap-4">
-            <span className="text-[10px] md:text-xs font-bold text-foreground/40 uppercase tracking-widest whitespace-nowrap">Progreso: {state.currentStep}/5</span>
-            <Link href="/" className="text-[10px] md:text-xs font-bold text-red-500 uppercase tracking-widest hover:underline whitespace-nowrap">Salir</Link>
+        <div className="flex flex-col items-end gap-1 shrink-0">
+          <div className="flex items-center gap-2">
+            <span className="text-[9px] font-bold text-foreground/40 uppercase tracking-widest whitespace-nowrap">{state.currentStep}/5</span>
+            <Link href="/" className="text-[9px] font-bold text-red-500 uppercase tracking-widest hover:underline whitespace-nowrap">Salir</Link>
           </div>
-          <div className="w-24 md:w-48 h-1 md:h-1.5 bg-muted-custom rounded-full overflow-hidden">
+          <div className="w-16 md:w-32 h-1 bg-muted-custom rounded-full overflow-hidden">
             <div 
               className="h-full bg-primary transition-all duration-500 ease-out" 
               style={{ width: `${progress}%` }} 
@@ -80,39 +80,41 @@ export default function InterviewPage() {
         </div>
       </header>
 
-      {/* Chat Area */}
-      <div className="flex-1 max-w-4xl mx-auto w-full p-4 md:p-6 flex flex-col gap-6 md:gap-8 pb-72">
-        {/* Current Question Bubble */}
-        <div className="flex flex-col gap-3 md:gap-4 animate-in fade-in slide-in-from-top-4 duration-500">
-          <div className="flex items-center gap-3">
-             <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-[10px] text-white font-bold">ALEX</div>
-             <span className="text-xs font-bold text-foreground/30 uppercase tracking-widest leading-none">Entrevistador</span>
+      {/* Chat Area - Scrollable */}
+      <div className="flex-1 overflow-y-auto p-4 md:p-6 flex flex-col gap-6 scroll-smooth">
+        <div className="max-w-3xl mx-auto w-full flex flex-col gap-6 py-4">
+          {/* Current Question Bubble */}
+          <div className="flex flex-col gap-3 animate-in fade-in slide-in-from-top-4 duration-500">
+            <div className="flex items-center gap-2">
+               <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-[8px] text-white font-bold">ALEX</div>
+               <span className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest leading-none">Entrevistador</span>
+            </div>
+            
+            <div className="glass-card p-5 md:p-10 relative border-border-custom shadow-xl">
+              {(isTyping || state.loading) ? (
+                <div className="flex gap-1.5 items-center h-6">
+                  <div className="w-2 h-2 bg-primary/50 rounded-full animate-bounce [animation-delay:-0.3s]" />
+                  <div className="w-2 h-2 bg-primary/50 rounded-full animate-bounce [animation-delay:-0.15s]" />
+                  <div className="w-2 h-2 bg-primary/50 rounded-full animate-bounce" />
+                </div>
+              ) : (
+                <p className="text-base md:text-2xl font-medium leading-relaxed">
+                  {currentQuestion}
+                </p>
+              )}
+            </div>
           </div>
-          
-          <div className="glass-card p-6 md:p-10 relative border-border-custom shadow-xl">
-            {(isTyping || state.loading) ? (
-              <div className="flex gap-1.5 items-center h-8">
-                <div className="w-2.5 h-2.5 bg-primary/50 rounded-full animate-bounce [animation-delay:-0.3s]" />
-                <div className="w-2.5 h-2.5 bg-primary/50 rounded-full animate-bounce [animation-delay:-0.15s]" />
-                <div className="w-2.5 h-2.5 bg-primary/50 rounded-full animate-bounce" />
-                <span className="text-xs ml-2 text-foreground/40 italic font-medium anim-pulse">
-                  {state.loading ? "Generando preguntas..." : "Alex está escribiendo..."}
-                </span>
-              </div>
-            ) : (
-              <p className="text-lg md:text-3xl font-medium leading-relaxed">
-                {currentQuestion}
-              </p>
-            )}
-          </div>
+
+          {/* Spacer to push content up if keyboard is not present, 
+              but since we are flex-col it will be naturally handled */}
         </div>
       </div>
 
-      {/* Input Area */}
-      <div className="fixed bottom-0 left-0 right-0 p-4 md:p-6 bg-gradient-to-t from-background via-background to-transparent z-40">
+      {/* Input Area - Not fixed, just at the bottom of the flex container */}
+      <div className="p-4 bg-background/80 backdrop-blur-xl border-t border-border-custom shrink-0">
         <form 
           onSubmit={handleSubmit}
-          className="max-w-4xl mx-auto glass-card p-3 md:p-4 flex flex-col gap-3 md:gap-4 shadow-2xl border-primary/20 overflow-hidden"
+          className="max-w-3xl mx-auto glass-card p-3 flex flex-col gap-3 shadow-lg border-primary/20 overflow-hidden"
         >
           <textarea 
             autoFocus
@@ -124,16 +126,16 @@ export default function InterviewPage() {
                 handleSubmit(e);
               }
             }}
-            placeholder={isTyping || state.loading ? "Esperando..." : "Tu respuesta..."}
+            placeholder={isTyping || state.loading ? "Esperando..." : "Escribe tu respuesta..."}
             disabled={isTyping || state.loading}
-            className="w-full bg-transparent p-2 md:p-4 min-h-[80px] md:min-h-[140px] max-h-[200px] md:max-h-[300px] resize-none focus:outline-none text-base md:text-xl leading-relaxed disabled:opacity-50 placeholder:text-foreground/10"
+            className="w-full bg-transparent p-1 min-h-[60px] md:min-h-[120px] max-h-[150px] md:max-h-[250px] resize-none focus:outline-none text-sm md:text-lg leading-relaxed disabled:opacity-50 placeholder:text-foreground/20"
           />
-          <div className="flex justify-between items-center border-t border-border-custom pt-3 md:pt-4 px-1 md:px-2">
-            <span className="text-[9px] md:text-[10px] font-bold text-foreground/20 uppercase tracking-widest hidden sm:block">Enter para enviar</span>
-            <button 
+          <div className="flex justify-between items-center border-t border-border-custom pt-3">
+             <span className="text-[8px] font-bold text-foreground/20 uppercase tracking-widest hidden sm:block">Shift+Enter para nueva línea</span>
+             <button 
               type="submit"
               disabled={isTyping || state.loading || !currentAnswer.trim()}
-              className="w-full sm:w-auto px-6 md:px-10 py-2.5 md:py-3 bg-primary text-white rounded-xl font-bold hover:opacity-90 transition-all disabled:opacity-30 disabled:grayscale hover:scale-105 active:scale-95 shadow-xl shadow-indigo-500/20 text-sm md:text-base"
+              className="w-full sm:w-auto px-6 py-2 bg-primary text-white rounded-lg font-bold hover:opacity-90 transition-all disabled:opacity-30 hover:scale-[1.02] active:scale-95 text-xs md:text-sm shadow-lg shadow-indigo-500/20"
             >
               Responder
             </button>
