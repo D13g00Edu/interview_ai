@@ -62,6 +62,9 @@ export async function POST(req: Request) {
 
   } catch (error: any) {
     console.error('Unhandled API Error in generate-questions:', error);
-    return NextResponse.json({ error: error.message || 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json({ 
+      error: error.message || 'Internal Server Error',
+      details: error.stack || 'No stack trace available'
+    }, { status: 500 });
   }
 }
