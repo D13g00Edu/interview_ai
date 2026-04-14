@@ -21,25 +21,25 @@ export async function POST(req: Request) {
 
     const conversation = answers.map(a => `Q: ${a.question}\nA: ${a.answer}`).join('\n\n');
 
-    const prompt = `Based on the following interview transcript, generate a final performance report:
+    const prompt = `Basado en la siguiente transcripción de entrevista, genera un reporte final de desempeño en ESPAÑOL:
     
     ${conversation}
 
-    Provide:
-    1. Overall Score (/10)
-    2. Breakdown scores (/10) for: Clarity, Relevance, Communication.
-    3. Strengths (top 2)
-    4. Weaknesses (top 2)
-    5. One example of an answer that could be significantly improved, and show a "High Quality" version of that same answer.
+    Proporciona:
+    1. Puntaje General (/10)
+    2. Desglose de puntajes (/10) para: Claridad, Relevancia, Comunicación.
+    3. Fortalezas (top 2)
+    4. Debilidades (top 2)
+    5. Un ejemplo de una respuesta que podría mejorarse significativamente, y muestra una versión de "Alta Calidad" de esa misma respuesta.
 
-    Return ONLY a JSON object: { 
+    Devuelve ÚNICAMENTE un objeto JSON en este formato: { 
       "totalScore": number, 
       "breakdown": { "clarity": number, "relevance": number, "communication": number },
       "strengths": [], 
       "weaknesses": [], 
       "improvedExample": { "original": "", "improved": "", "whyBetter": "" } 
     }
-    Do not use markdown formatting.`;
+    No uses formato markdown.`;
 
     const result = await geminiModel.generateContent(prompt);
     const response = await result.response;

@@ -10,15 +10,15 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    const prompt = `You are a professional interviewer. Create 5 interview questions for a candidate with the following profile:
-    - Position: ${position}
-    - Seniority Level: ${level}
-    - Interview Type: ${type}
-    ${name ? `- Candidate Name: ${name}` : ''}
+    const prompt = `Eres un entrevistador profesional. Crea 5 preguntas de entrevista para un candidato con el siguiente perfil:
+    - Puesto: ${position}
+    - Nivel de Seniority: ${level}
+    - Tipo de Entrevista: ${type}
+    ${name ? `- Nombre del Candidato: ${name}` : ''}
 
-    Focus on ${type === 'Behavioral' ? 'situational and soft skills' : 'technical depth and problem solving'}.
-    Return ONLY a JSON array of strings containing the questions. Example: ["Question 1", "Question 2", ...]
-    Do not include markdown formatting or backticks, just the raw JSON array.`;
+    Enfócate en ${type.includes('Comportamiento') ? 'habilidades blandas y situaciones pasadas' : 'profundidad técnica y resolución de problemas'}.
+    Devuelve ÚNICAMENTE un array JSON de strings con las preguntas en ESPAÑOL. Ejemplo: ["Pregunta 1", "Pregunta 2", ...]
+    No incluyas formato markdown ni comillas invertidas, solo el array JSON puro.`;
 
     if (!process.env.GEMINI_API_KEY) {
       console.error('CRITICAL: GEMINI_API_KEY is not defined in environment variables.');

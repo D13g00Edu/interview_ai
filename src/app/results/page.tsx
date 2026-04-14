@@ -47,33 +47,33 @@ export default function ResultsPage() {
       <div className="max-w-4xl w-full space-y-8 md:space-y-12 py-8 md:py-12 animate-in fade-in duration-1000">
         <header className="text-center space-y-4">
           <div className="inline-block px-4 py-1 bg-green-500/10 text-green-500 rounded-full text-xs font-bold uppercase tracking-widest mb-2">
-            Interview Complete
+            Entrevista Completada
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-gradient py-1">Session Results</h1>
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-gradient py-1">Resultados de la Sesión</h1>
           <p className="text-foreground/60 text-base md:text-lg max-w-2xl mx-auto">
-            Great job, {state.name || 'Candidate'}! You've completed your simulation for the <strong>{state.position}</strong> role.
+            ¡Buen trabajo, {state.name || 'Candidato/a'}! Has completado tu simulación para el puesto de <strong>{state.position}</strong>.
           </p>
         </header>
 
         {/* Top Score Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           <div className="glass-card p-6 text-center space-y-2 border-primary/20 bg-primary/5 shadow-xl">
-             <span className="text-xs font-bold text-primary uppercase tracking-widest">Overall Score</span>
+             <span className="text-xs font-bold text-primary uppercase tracking-widest">Puntaje General</span>
              <p className="text-5xl font-bold text-foreground">{finalScore}<span className="text-xl opacity-30">/10</span></p>
           </div>
           
           {report?.breakdown && (
             <>
               <div className="glass-card p-6 text-center space-y-2 border-border-custom bg-card/30">
-                <span className="text-xs font-bold text-foreground/40 uppercase tracking-widest">Clarity</span>
+                <span className="text-xs font-bold text-foreground/40 uppercase tracking-widest">Claridad</span>
                 <p className="text-3xl font-bold text-indigo-400">{report.breakdown.clarity}<span className="text-sm opacity-30">/10</span></p>
               </div>
               <div className="glass-card p-6 text-center space-y-2 border-border-custom bg-card/30">
-                <span className="text-xs font-bold text-foreground/40 uppercase tracking-widest">Relevance</span>
+                <span className="text-xs font-bold text-foreground/40 uppercase tracking-widest">Relevancia</span>
                 <p className="text-3xl font-bold text-pink-400">{report.breakdown.relevance}<span className="text-sm opacity-30">/10</span></p>
               </div>
               <div className="glass-card p-6 text-center space-y-2 border-border-custom bg-card/30">
-                <span className="text-xs font-bold text-foreground/40 uppercase tracking-widest">Communication</span>
+                <span className="text-xs font-bold text-foreground/40 uppercase tracking-widest">Comunicación</span>
                 <p className="text-3xl font-bold text-purple-400">{report.breakdown.communication}<span className="text-sm opacity-30">/10</span></p>
               </div>
             </>
@@ -88,7 +88,7 @@ export default function ResultsPage() {
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                   </svg>
-                  Key Strengths
+                  Fortalezas Clave
                 </h4>
                 <ul className="space-y-3">
                    {report.strengths.map((s: string, i: number) => (
@@ -103,7 +103,7 @@ export default function ResultsPage() {
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                   </svg>
-                  Focus Areas
+                  Áreas de Mejora
                 </h4>
                 <ul className="space-y-3">
                    {report.weaknesses.map((w: string, i: number) => (
@@ -119,7 +119,7 @@ export default function ResultsPage() {
         {/* Featured Improved Answer */}
         {report?.improvedExample && (
            <div className="space-y-6 pt-4 md:pt-8 animate-in slide-in-from-bottom-10 duration-1000">
-              <h3 className="text-2xl md:text-3xl font-bold px-2">Level Up Your Communication</h3>
+              <h3 className="text-2xl md:text-3xl font-bold px-2">Eleva tu Nivel de Comunicación</h3>
               <div className="glass-card p-6 md:p-10 bg-gradient-to-br from-primary/10 via-background to-secondary/10 border-primary/30 relative overflow-hidden group">
                  <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-24 h-24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -129,13 +129,13 @@ export default function ResultsPage() {
                  
                  <div className="space-y-8 relative z-10">
                    <div className="space-y-3">
-                      <span className="text-[10px] font-bold text-foreground/40 uppercase tracking-[0.2em] border-b border-border-custom pb-1">Original Performance</span>
+                      <span className="text-[10px] font-bold text-foreground/40 uppercase tracking-[0.2em] border-b border-border-custom pb-1">Tu Respuesta Original</span>
                       <p className="text-foreground/60 italic text-sm md:text-base leading-relaxed">"{report.improvedExample.original}"</p>
                    </div>
                    
                    <div className="space-y-4">
                       <div className="flex items-center gap-3">
-                         <span className="bg-primary text-white text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-tighter">Elite Version</span>
+                         <span className="bg-primary text-white text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-tighter">Versión Élite (Sugerida)</span>
                          <div className="flex-1 h-px bg-primary/20" />
                       </div>
                       <p className="text-xl md:text-2xl font-semibold leading-relaxed text-foreground">
@@ -145,7 +145,7 @@ export default function ResultsPage() {
                    
                    <div className="p-4 bg-background/60 backdrop-blur-md rounded-xl border border-primary/20 shadow-inner">
                       <p className="text-sm text-foreground/70 leading-relaxed">
-                         <strong className="text-primary font-bold uppercase tracking-widest text-[10px] mr-2">Why this wins:</strong> {report.improvedExample.whyBetter}
+                         <strong className="text-primary font-bold uppercase tracking-widest text-[10px] mr-2">¿Por qué es mejor?</strong> {report.improvedExample.whyBetter}
                       </p>
                    </div>
                  </div>
@@ -155,17 +155,17 @@ export default function ResultsPage() {
 
         {/* Detailed Questions List */}
         <div className="space-y-6 pt-8">
-          <h3 className="text-xl md:text-2xl font-bold px-2">Detailed Questions</h3>
+          <h3 className="text-xl md:text-2xl font-bold px-2">Análisis Detallado</h3>
           <div className="space-y-4 md:space-y-6">
             {state.answers.map((answer, i) => (
               <div key={i} className="glass-card p-6 md:p-10 space-y-6 border-l-4 border-l-primary/50 border-border-custom shadow-md hover:shadow-lg transition-shadow">
                 <div className="flex justify-between items-center">
-                  <span className="text-[10px] font-bold text-foreground/30 uppercase tracking-[0.2em]">Question {i + 1}</span>
-                  <span className="text-[10px] font-black text-primary/60 uppercase tracking-widest px-2 py-1 bg-primary/5 rounded border border-primary/10">Analysis Complete</span>
+                  <span className="text-[10px] font-bold text-foreground/30 uppercase tracking-[0.2em]">Pregunta {i + 1}</span>
+                  <span className="text-[10px] font-black text-primary/60 uppercase tracking-widest px-2 py-1 bg-primary/5 rounded border border-primary/10">Análisis Completado</span>
                 </div>
-                <p className="text-lg md:text-xl font-bold text-foreground/80 leading-relaxed italic">"{state.questions[i] || `Question ${i+1}`}"</p>
+                <p className="text-lg md:text-xl font-bold text-foreground/80 leading-relaxed italic">"{state.questions[i] || `Pregunta ${i+1}`}"</p>
                 <div className="space-y-3 p-5 md:p-6 bg-background/50 rounded-2xl border border-border-custom shadow-inner">
-                  <span className="text-[10px] font-bold text-foreground/40 uppercase tracking-widest">Your Answer</span>
+                  <span className="text-[10px] font-bold text-foreground/40 uppercase tracking-widest">Tu Respuesta</span>
                   <p className="text-foreground/90 leading-relaxed text-base md:text-lg">{answer}</p>
                 </div>
               </div>
@@ -182,10 +182,9 @@ export default function ResultsPage() {
             }}
             className="w-full sm:w-auto px-10 py-5 glass-card font-bold hover:bg-background/80 transition-all border-border-custom shadow-xl text-sm uppercase tracking-widest outline-none focus:ring-2 focus:ring-primary/50"
           >
-            Back to Home
+            Volver al Inicio
           </button>
           <button 
-            alt-aria="Practice again with same settings"
             onClick={() => {
               const currentInfo = {
                 name: state.name,
@@ -195,7 +194,7 @@ export default function ResultsPage() {
               };
               reset();
               updateInfo(currentInfo);
-              router.push('/start'); // The user asked to go back to /start to practicing again with possibly different settings or same
+              router.push('/start');
             }}
             className="w-full sm:w-auto px-10 py-5 bg-primary text-white rounded-full font-bold hover:opacity-90 transition-all shadow-xl shadow-indigo-500/20 hover:scale-105 active:scale-95 text-sm uppercase tracking-widest outline-none focus:ring-4 focus:ring-primary/30"
           >

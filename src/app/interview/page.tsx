@@ -50,7 +50,7 @@ export default function InterviewPage() {
   };
 
   const progress = (state.currentStep / 5) * 100;
-  const currentQuestion = state.questions[state.currentStep - 1] || (state.loading ? "Generating your custom interview..." : "Preparing next question...");
+  const currentQuestion = state.questions[state.currentStep - 1] || (state.loading ? "Generando tu entrevista personalizada..." : "Preparando siguiente pregunta...");
 
   return (
     <main className="flex min-h-screen flex-col bg-background text-foreground">
@@ -58,18 +58,18 @@ export default function InterviewPage() {
       <header className="border-b border-border-custom p-6 flex justify-between items-center bg-background/80 backdrop-blur-md sticky top-0 z-50">
         <div className="flex items-center gap-4">
           <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center text-primary font-bold">
-            AI
+            IA
           </div>
           <div>
-            <h2 className="font-bold tracking-tight">Interviewing for {state.position}</h2>
+            <h2 className="font-bold tracking-tight">Entrevista para {state.position}</h2>
             <p className="text-[10px] text-foreground/50 font-bold uppercase tracking-widest">{state.type} • {state.level}</p>
           </div>
         </div>
         
         <div className="flex flex-col items-end gap-2">
           <div className="flex items-center gap-4">
-            <span className="text-xs font-bold text-foreground/40 uppercase tracking-widest">Progress: {state.currentStep}/5</span>
-            <Link href="/" className="text-xs font-bold text-red-500 uppercase tracking-widest hover:underline">Exit</Link>
+            <span className="text-xs font-bold text-foreground/40 uppercase tracking-widest">Progreso: {state.currentStep}/5</span>
+            <Link href="/" className="text-xs font-bold text-red-500 uppercase tracking-widest hover:underline">Salir</Link>
           </div>
           <div className="w-48 h-1.5 bg-muted-custom rounded-full overflow-hidden">
             <div 
@@ -86,7 +86,7 @@ export default function InterviewPage() {
         <div className="flex flex-col gap-4 animate-in fade-in slide-in-from-top-4 duration-500">
           <div className="flex items-center gap-3">
              <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-[10px] text-white font-bold">ALEX</div>
-             <span className="text-xs font-bold text-foreground/30 uppercase tracking-widest leading-none">Interviewer</span>
+             <span className="text-xs font-bold text-foreground/30 uppercase tracking-widest leading-none">Entrevistador</span>
           </div>
           
           <div className="glass-card p-10 relative border-border-custom shadow-xl">
@@ -96,7 +96,7 @@ export default function InterviewPage() {
                 <div className="w-2.5 h-2.5 bg-primary/50 rounded-full animate-bounce [animation-delay:-0.15s]" />
                 <div className="w-2.5 h-2.5 bg-primary/50 rounded-full animate-bounce" />
                 <span className="text-xs ml-2 text-foreground/40 italic font-medium anim-pulse">
-                  {state.loading ? "Generating custom questions..." : "Alex is typing..."}
+                  {state.loading ? "Generando preguntas personalizadas..." : "Alex está escribiendo..."}
                 </span>
               </div>
             ) : (
@@ -124,12 +124,12 @@ export default function InterviewPage() {
                 handleSubmit(e);
               }
             }}
-            placeholder={isTyping || state.loading ? "Waiting for question..." : "Type your answer here..."}
+            placeholder={isTyping || state.loading ? "Esperando pregunta..." : "Escribe tu respuesta aquí..."}
             disabled={isTyping || state.loading}
             className="w-full bg-transparent p-4 min-h-[140px] max-h-[300px] resize-none focus:outline-none text-xl leading-relaxed disabled:opacity-50 placeholder:text-foreground/10"
           />
           <div className="flex justify-between items-center border-t border-border-custom pt-4 px-2">
-            <span className="text-[10px] font-bold text-foreground/20 uppercase tracking-widest">Press Enter to Send</span>
+            <span className="text-[10px] font-bold text-foreground/20 uppercase tracking-widest">Presiona Enter para enviar</span>
             <button 
               type="submit"
               disabled={isTyping || state.loading || !currentAnswer.trim()}

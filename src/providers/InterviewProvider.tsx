@@ -28,8 +28,8 @@ export function InterviewProvider({ children }: { children: React.ReactNode }) {
   const [state, setState] = useState<InterviewState>({
     name: '',
     position: '',
-    level: 'Junior',
-    type: 'Behavioral',
+    level: 'Junior (Principiante)',
+    type: 'Comportamiento (Behavioral)',
     currentStep: 1,
     answers: [],
     questions: [],
@@ -98,7 +98,7 @@ export function InterviewProvider({ children }: { children: React.ReactNode }) {
     setState(newState);
     sessionStorage.setItem('interview_state', JSON.stringify(newState));
     
-    // Proactively evaluate in background (optional, but we'll do it on-demand in the UI)
+    // Proactively evaluate in background
     fetch('/api/evaluate-answer', {
        method: 'POST',
        body: JSON.stringify({
@@ -113,8 +113,8 @@ export function InterviewProvider({ children }: { children: React.ReactNode }) {
     const initialState = {
       name: '',
       position: '',
-      level: 'Junior',
-      type: 'Behavioral',
+      level: 'Junior (Principiante)',
+      type: 'Comportamiento (Behavioral)',
       currentStep: 1,
       answers: [],
       questions: [],

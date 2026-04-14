@@ -10,20 +10,20 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Question and answer are required' }, { status: 400 });
     }
 
-    const prompt = `Evaluate the following interview response:
-    Question: ${question}
-    Answer: ${answer}
+    const prompt = `Evalúa la siguiente respuesta de entrevista:
+    Pregunta: ${question}
+    Respuesta: ${answer}
 
-    Provide feedback on:
-    1. Clarity (0-10)
-    2. Relevance (0-10)
-    3. Communication Level (0-10)
+    Proporciona feedback sobre:
+    1. Claridad (0-10)
+    2. Relevancia (0-10)
+    3. Nivel de Comunicación (0-10)
     
-    Total Score (0-10).
-    Provide one concise piece of advice for improvement.
+    Puntaje Total (0-10).
+    Proporciona un consejo conciso para mejorar en ESPAÑOL.
 
-    Return ONLY a JSON object: { "clarity": index, "relevance": index, "communication": index, "total": index, "advice": "string" }
-    No markdown, no backticks.`;
+    Devuelve ÚNICAMENTE un objeto JSON en este formato: { "clarity": index, "relevance": index, "communication": index, "total": index, "advice": "string" }
+    Sin markdown, sin comillas invertidas.`;
 
     const result = await geminiModel.generateContent(prompt);
     const response = await result.response;
