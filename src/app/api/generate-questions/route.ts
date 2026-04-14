@@ -20,21 +20,25 @@ export async function POST(req: Request) {
     Return ONLY a JSON array of strings containing the questions. Example: ["Question 1", "Question 2", ...]
     Do not include markdown formatting or backticks, just the raw JSON array.`;
 
+    if (!process.env.GEMINI_API_KEY) {
+      console.error('CRITICAL: GEMINI_API_KEY is not defined in environment variables.');
+      return NextResponse.json({ error: 'AI Service configuration missing' }, { status: 500 });
+    }
+
     const result = await geminiModel.generateContent(prompt);
     const response = await result.response;
     const content = response.text();
     
     let questions;
     try {
-      // Clean potential markdown or extra text
       const jsonStr = content.match(/\[.*\]/s)?.[0] || content;
       questions = JSON.parse(jsonStr);
     } catch (e) {
-      console.error('Failed to parse Gemini response', content);
+      console.error('Failed to parse Gemini response. Content received:', content);
       return NextResponse.json({ error: 'Failed to generate questions' }, { status: 500 });
     }
 
-    const { data: session } = await supabase
+    const { data: session, error: sbError } = await supabase
       .from('sessions')
       .insert({
         candidate_name: name || 'Anonymous',
@@ -46,12 +50,18 @@ export async function POST(req: Request) {
       .select()
       .single();
 
+    if (sbError) {
+      console.error('Supabase Error during session creation:', sbError);
+      // We continue to allow the interview to proceed locally even if DB fails
+    }
+
     return NextResponse.json({ 
       questions, 
       sessionId: session?.id 
     });
 
   } catch (error: any) {
+    console.error('Unhandled API Error in generate-questions:', error);
     return NextResponse.json({ error: error.message || 'Internal Server Error' }, { status: 500 });
   }
 }

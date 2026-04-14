@@ -42,7 +42,13 @@ export function InterviewProvider({ children }: { children: React.ReactNode }) {
     const saved = sessionStorage.getItem('interview_state');
     if (saved) {
       try {
-        setState(prev => ({ ...prev, ...JSON.parse(saved) }));
+        const parsed = JSON.parse(saved);
+        setState(prev => ({ 
+          ...prev, 
+          ...parsed,
+          answers: parsed.answers || [],
+          questions: parsed.questions || []
+        }));
       } catch (e) {
         console.error('Failed to parse session state', e);
       }

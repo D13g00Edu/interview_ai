@@ -13,10 +13,10 @@ export default function ResultsPage() {
 
   // Redirect if no interview data
   useEffect(() => {
-    if (state.answers.length === 0 && !loading) {
+    if ((!state.answers || state.answers.length === 0) && !loading) {
       router.replace('/');
     }
-  }, [state.answers.length, loading, router]);
+  }, [state.answers, loading, router]);
 
   // Fetch final report
   useEffect(() => {

@@ -17,7 +17,7 @@ export default function Home() {
           Master Your Next <br /> Big Interview
         </h1>
         <p className="text-xl md:text-2xl text-foreground/70 max-w-2xl leading-relaxed">
-          Powered by Anthropic AI to provide real-time feedback and realistic simulations tailored to your career goals.
+          Powered by Google Gemini AI to provide real-time feedback and realistic simulations tailored to your career goals.
         </p>
         
         <div className="flex flex-wrap justify-center gap-4">
@@ -46,7 +46,7 @@ export default function Home() {
         <div className="glass-card p-8 space-y-4 border-border-custom">
           <div className="w-12 h-12 bg-secondary/10 rounded-xl flex items-center justify-center text-secondary">
             <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04kM12 21.75c-3.125 0-5.625-2.5-5.625-5.625S8.875 10.5 12 10.5s5.625 2.5 5.625 5.625-2.5 5.625-5.625 5.625z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04M12 21.75c-3.125 0-5.625-2.5-5.625-5.625S8.875 10.5 12 10.5s5.625 2.5 5.625 5.625-2.5 5.625-5.625 5.625z" />
             </svg>
           </div>
           <h3 className="text-xl font-bold">Personalized Prep</h3>
