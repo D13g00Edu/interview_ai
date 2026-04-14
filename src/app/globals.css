@@ -7,6 +7,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
   --color-secondary: var(--secondary);
   --color-accent: var(--accent);
   --color-muted-custom: var(--muted);
@@ -15,26 +16,28 @@
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #111827;
-  --primary: #6366f1;
-  --secondary: #ec4899;
-  --accent: #8b5cf6;
-  --muted: #f3f4f6;
-  --card: #ffffff;
-  --border: #e5e7eb;
+  --background: #05060f; /* Deep dark blue/black background from the image */
+  --foreground: #ffffff;
+  --primary: #3b82f6; /* Bright blue from the image button */
+  --primary-dark: #2563eb;
+  --secondary: #94a3b8;
+  --accent: #60a5fa;
+  --muted: #0f1225;
+  --card: #0a0c1a;
+  --border: rgba(255, 255, 255, 0.08); /* Faint borders */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #030712;
-    --foreground: #f9fafb;
-    --primary: #818cf8;
-    --secondary: #f472b6;
-    --accent: #a78bfa;
-    --muted: #111827;
-    --card: #0f172a;
-    --border: #1e293b;
+    --background: #05060f;
+    --foreground: #ffffff;
+    --primary: #3b82f6;
+    --primary-dark: #2563eb;
+    --secondary: #94a3b8;
+    --accent: #60a5fa;
+    --muted: #0f1225;
+    --card: #0a0c1a;
+    --border: rgba(255, 255, 255, 0.08);
   }
 }
 
@@ -45,30 +48,31 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Theme-aware glass-card */
+/* Premium Dark Card styles */
 .glass-card {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 1.5rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
 }
 
-@media (prefers-color-scheme: dark) {
-  .glass-card {
-    background: rgba(15, 23, 42, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
+.text-gradient-none {
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  -webkit-text-fill-color: initial;
 }
 
+/* Premium dark background effects from the image */
 @layer utilities {
-  .text-gradient {
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+  .bg-hero-glow {
+    background-image: 
+      radial-gradient(ellipse at top, rgba(59, 130, 246, 0.15) 0%, transparent 60%),
+      radial-gradient(circle at center 80%, rgba(59, 130, 246, 0.08) 0%, transparent 50%);
   }
   
-  .bg-gradient-premium {
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);
+  .bg-subtle-pattern {
+    background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.03) 1px, transparent 0);
+    background-size: 32px 32px;
   }
 }
