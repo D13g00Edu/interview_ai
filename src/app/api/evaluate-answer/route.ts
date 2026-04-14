@@ -2,17 +2,22 @@ import { NextResponse } from 'next/server';
 import { geminiModel } from '@/lib/gemini';
 import { supabase } from '@/lib/supabase';
 
+const sanitize = (text: string) => (text || '').replace(/[<>]/g, '');
+
 export async function POST(req: Request) {
   try {
     const { sessionId, question, answer } = await req.json();
 
     if (!question || !answer) {
-      return NextResponse.json({ error: 'Question and answer are required' }, { status: 400 });
+      return NextResponse.json({ error: 'Pregunta y respuesta son requeridas' }, { status: 400 });
     }
 
+    const safeQuestion = sanitize(question);
+    const safeAnswer = sanitize(answer);
+
     const prompt = `Evalúa la siguiente respuesta de entrevista:
-    Pregunta: ${question}
-    Respuesta: ${answer}
+    Pregunta: ${safeQuestion}
+    Respuesta: ${safeAnswer}
 
     Proporciona feedback sobre:
     1. Claridad (0-10)
@@ -34,14 +39,14 @@ export async function POST(req: Request) {
       const jsonStr = content.match(/\{.*\}/s)?.[0] || content;
       evaluation = JSON.parse(jsonStr);
     } catch (e) {
-      return NextResponse.json({ error: 'Evaluation failed' }, { status: 500 });
+      return NextResponse.json({ error: 'Error en la evaluación' }, { status: 500 });
     }
 
     if (sessionId) {
       await supabase.from('answers').insert({
         session_id: sessionId,
-        question,
-        answer,
+        question: safeQuestion,
+        answer: safeAnswer,
         score: evaluation.total,
         feedback: evaluation.advice
       });
@@ -50,6 +55,7 @@ export async function POST(req: Request) {
     return NextResponse.json(evaluation);
 
   } catch (error: any) {
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    console.error('API Error in evaluate-answer:', error.message);
+    return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 });
   }
 }

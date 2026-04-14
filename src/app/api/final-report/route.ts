@@ -7,7 +7,7 @@ export async function POST(req: Request) {
     const { sessionId } = await req.json();
 
     if (!sessionId) {
-      return NextResponse.json({ error: 'Session ID is required' }, { status: 400 });
+      return NextResponse.json({ error: 'ID de sesión es requerido' }, { status: 400 });
     }
 
     const { data: answers, error: dbError } = await supabase
@@ -16,7 +16,7 @@ export async function POST(req: Request) {
       .eq('session_id', sessionId);
 
     if (dbError || !answers || answers.length === 0) {
-      return NextResponse.json({ error: 'No data found for session' }, { status: 404 });
+      return NextResponse.json({ error: 'No se encontraron datos para esta sesión' }, { status: 404 });
     }
 
     const conversation = answers.map(a => `Q: ${a.question}\nA: ${a.answer}`).join('\n\n');
@@ -50,7 +50,7 @@ export async function POST(req: Request) {
       const jsonStr = content.match(/\{.*\}/s)?.[0] || content;
       report = JSON.parse(jsonStr);
     } catch (e) {
-      return NextResponse.json({ error: 'Report generation failed' }, { status: 500 });
+      return NextResponse.json({ error: 'Error al generar reporte final' }, { status: 500 });
     }
 
     await supabase
@@ -61,6 +61,7 @@ export async function POST(req: Request) {
     return NextResponse.json(report);
 
   } catch (error: any) {
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    console.error('API Error in final-report:', error.message);
+    return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 });
   }
 }
