@@ -27,11 +27,18 @@ export async function POST(req: Request) {
 
     Provide:
     1. Overall Score (/10)
-    2. Strengths (top 2)
-    3. Weaknesses (top 2)
-    4. One example of an answer that could be significantly improved, and show a "High Quality" version of that same answer.
+    2. Breakdown scores (/10) for: Clarity, Relevance, Communication.
+    3. Strengths (top 2)
+    4. Weaknesses (top 2)
+    5. One example of an answer that could be significantly improved, and show a "High Quality" version of that same answer.
 
-    Return ONLY a JSON object: { "totalScore": number, "strengths": [], "weaknesses": [], "improvedExample": { "original": "", "improved": "", "whyBetter": "" } }
+    Return ONLY a JSON object: { 
+      "totalScore": number, 
+      "breakdown": { "clarity": number, "relevance": number, "communication": number },
+      "strengths": [], 
+      "weaknesses": [], 
+      "improvedExample": { "original": "", "improved": "", "whyBetter": "" } 
+    }
     Do not use markdown formatting.`;
 
     const result = await geminiModel.generateContent(prompt);
